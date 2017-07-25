@@ -1,11 +1,14 @@
-package com.xiong.mobilesafe.ui;
+package com.xiong.mobilesafe.utils;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 /**
+ *
  * md5加密方法
  * Created by Administrator on 2017/7/25.
+ *
+ * http://blog.csdn.net/qq_34625397/article/details/56830877
  */
 
 public class MD5Utils {

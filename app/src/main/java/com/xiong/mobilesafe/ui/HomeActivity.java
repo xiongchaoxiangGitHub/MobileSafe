@@ -19,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.xiong.R;
+import com.xiong.mobilesafe.utils.MD5Utils;
 
 import static android.view.View.inflate;
 
@@ -121,6 +122,8 @@ public class HomeActivity extends Activity {
                     editor.apply();
                     dialog.dismiss();
                     Log.i(TAG, "一致 保存密码 对话框取消 进入手机防盗页面");
+                    Intent intent = new Intent(HomeActivity.this, LostFindActivity.class);
+                    startActivity(intent);
                 } else {
                     Toast.makeText(HomeActivity.this, "密码不一致", Toast.LENGTH_SHORT).show();
                     return;
@@ -128,7 +131,7 @@ public class HomeActivity extends Activity {
             }
         });
         dialog = build.create();
-        dialog.setView(view,0,0,0,0);
+        dialog.setView(view, 0, 0, 0, 0);
         dialog.show();
     }
 
@@ -164,9 +167,11 @@ public class HomeActivity extends Activity {
                 if (MD5Utils.md5Password(password).equals(savePassword)) {
                     //输入密码正确
                     dialog.dismiss();
-                    Log.i(TAG,"把对话框取消掉，进入主页面");
+                    Log.i(TAG, "把对话框取消掉，进入主页面");
+                    Intent intent = new Intent(HomeActivity.this, LostFindActivity.class);
+                    startActivity(intent);
                 } else {
-                    Toast.makeText(HomeActivity.this,"密码错误",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(HomeActivity.this, "密码错误", Toast.LENGTH_SHORT).show();
                     et_setup_pwd.setText("");
                     return;
                 }
@@ -174,7 +179,7 @@ public class HomeActivity extends Activity {
         });
 
         dialog = build.create();
-        dialog.setView(view,0,0,0,0);
+        dialog.setView(view, 0, 0, 0, 0);
         dialog.show();
     }
 
