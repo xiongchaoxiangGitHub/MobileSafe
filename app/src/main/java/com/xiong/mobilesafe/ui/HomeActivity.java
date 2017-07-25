@@ -92,8 +92,8 @@ public class HomeActivity extends Activity {
 
         et_setup_pwd = view.findViewById(R.id.et_setup_pwd);
         et_setup_confirm = view.findViewById(R.id.et_setup_confirm);
-        ok = view.findViewById(R.id.ok);
-        cancel = view.findViewById(R.id.cancel);
+        ok = view.findViewById(R.id.setup_ok);
+        cancel = view.findViewById(R.id.setup_cancel);
 
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -117,7 +117,7 @@ public class HomeActivity extends Activity {
                 if (password.equals(password_confirm)) {
                     //一致 保存密码 对话框取消 进入手机防盗页面
                     SharedPreferences.Editor editor = sp.edit();
-                    editor.putString("password", password);
+                    editor.putString("password", MD5Utils.md5Password(password));//保存md5加密
                     editor.apply();
                     dialog.dismiss();
                     Log.i(TAG, "一致 保存密码 对话框取消 进入手机防盗页面");
@@ -127,9 +127,9 @@ public class HomeActivity extends Activity {
                 }
             }
         });
-
-        build.setView(view);
-        build.show();
+        dialog = build.create();
+        dialog.setView(view,0,0,0,0);
+        dialog.show();
     }
 
     /**
@@ -141,8 +141,8 @@ public class HomeActivity extends Activity {
         View view = View.inflate(HomeActivity.this, R.layout.dialog_enter_password, null);
 
         et_setup_pwd = view.findViewById(R.id.et_setup_pwd);
-        ok = view.findViewById(R.id.ok);
-        cancel = view.findViewById(R.id.cancel);
+        ok = view.findViewById(R.id.enter_ok);
+        cancel = view.findViewById(R.id.enter_cancel);
 
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -155,13 +155,13 @@ public class HomeActivity extends Activity {
             @Override
             public void onClick(View view) {
                 String password = et_setup_pwd.getText().toString().trim();
-                String savePassword = sp.getString("password", "");
+                String savePassword = sp.getString("password", "");//取出md5加密后的
                 if (TextUtils.isEmpty(password)) {
                     Toast.makeText(HomeActivity.this, "密码为空", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                if (password.equals(savePassword)) {
+                if (MD5Utils.md5Password(password).equals(savePassword)) {
                     //输入密码正确
                     dialog.dismiss();
                     Log.i(TAG,"把对话框取消掉，进入主页面");
@@ -173,8 +173,9 @@ public class HomeActivity extends Activity {
             }
         });
 
-        build.setView(view);
-        build.show();
+        dialog = build.create();
+        dialog.setView(view,0,0,0,0);
+        dialog.show();
     }
 
     /**
