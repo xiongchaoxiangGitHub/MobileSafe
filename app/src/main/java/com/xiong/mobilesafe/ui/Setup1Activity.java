@@ -19,7 +19,7 @@ public class Setup1Activity extends Activity {
     }
 
     public void next(View view) {
-        Intent intent = new Intent(this,Setup2Activity.class);
+        Intent intent = new Intent(this, Setup2Activity.class);
         startActivity(intent);
         finish();
     }
