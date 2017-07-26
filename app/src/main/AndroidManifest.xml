@@ -27,6 +27,9 @@
         <activity android:name=".mobilesafe.ui.SettingActivity" />
         <activity android:name=".mobilesafe.ui.LostFindActivity" />
         <activity android:name=".mobilesafe.ui.Setup1Activity" />
+        <activity android:name=".mobilesafe.ui.Setup2Activity" />
+        <activity android:name=".mobilesafe.ui.Setup3Activity" />
+        <activity android:name=".mobilesafe.ui.Setup4Activity" />
     </application>
 
 </manifest>
