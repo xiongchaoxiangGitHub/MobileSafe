@@ -33,6 +33,8 @@ public class Setup4Activity extends Activity {
         Intent intent = new Intent(this,LostFindActivity.class);
         startActivity(intent);
         finish();
+
+        overridePendingTransition(R.anim.tran_in,R.anim.tran_out);
     }
 
     /**
@@ -42,5 +44,7 @@ public class Setup4Activity extends Activity {
         Intent intent = new Intent(this,Setup3Activity.class);
         startActivity(intent);
         finish();
+
+        overridePendingTransition(R.anim.tran_pre_in,R.anim.tran_pre_out);
     }
 }

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.View;
 
 import com.xiong.R;
 
@@ -26,9 +27,16 @@ public class LostFindActivity extends Activity {
             setContentView(R.layout.activity_lost_find);
         } else {
             //还没有做过设置向导
-            Intent intent = new Intent(this,Setup1Activity.class);
+            Intent intent = new Intent(this, Setup1Activity.class);
             startActivity(intent);
             finish();
         }
+    }
+
+    public void reEnterSetup(View view) {
+        //还没有做过设置向导
+        Intent intent = new Intent(this, Setup1Activity.class);
+        startActivity(intent);
+        finish();
     }
 }
