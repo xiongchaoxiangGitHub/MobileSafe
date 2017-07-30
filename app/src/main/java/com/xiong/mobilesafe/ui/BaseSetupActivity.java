@@ -86,7 +86,6 @@ public abstract class BaseSetupActivity extends Activity {
      */
     public void pre(View view) {
         showPre();
-
     }
 
     //3.手机识别器

@@ -2,6 +2,7 @@ package com.xiong.mobilesafe.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import com.xiong.R;
 
@@ -33,4 +34,16 @@ public class Setup3Activity extends BaseSetupActivity {
 
         overridePendingTransition(R.anim.tran_pre_in, R.anim.tran_pre_out);
     }
+
+    /**
+     * 选择联系人的点击事件
+     *
+     * @param view
+     */
+    public void selectContact(View view) {
+        Intent intent = new Intent(this, SelectContacyActivity.class);
+        startActivityForResult(intent, 0);
+    }
 }
+
+
