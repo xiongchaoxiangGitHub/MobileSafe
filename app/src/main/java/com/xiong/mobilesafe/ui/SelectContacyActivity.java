@@ -2,10 +2,13 @@ package com.xiong.mobilesafe.ui;
 
 import android.app.Activity;
 import android.content.ContentResolver;
+import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
@@ -29,8 +32,19 @@ public class SelectContacyActivity extends Activity {
         setContentView(R.layout.activity_select_contact);
 
         list_select_contact = findViewById(R.id.list_select_contact);
-        List<Map<String, String>> data = getContactInfo();
-        list_select_contact.setAdapter(new SimpleAdapter(this,data,R.layout.activity_select_contact,new String[]{"name","phone"},new int[]{}));
+        final List<Map<String, String>> data = getContactInfo();
+        list_select_contact.setAdapter(new SimpleAdapter(this, data, R.layout.activity_select_contact, new String[]{"namehone"}, new int[]{}));
+        list_select_contact.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                String phone = data.get(i).get("phone");
+                Intent data = new Intent();
+                data.putExtra("phone",phone);
+                setResult(0, data);
+
+                finish();
+            }
+        });
     }
 
     /**
