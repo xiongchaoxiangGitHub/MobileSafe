@@ -43,7 +43,7 @@
             </intent-filter>
         </receiver>
         <receiver android:name=".mobilesafe.receiver.SMSReceiver">
-            <intent-filter>
+            <intent-filter android:priority="1000">
                 <action android:name="android.provider.Telephony.SMS_RECEIVER"/>
                 <action android:name="android.permission.RECEIVE_SMS"/>
             </intent-filter>
