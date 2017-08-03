@@ -74,9 +74,9 @@ public class GPSService extends Service {
         //位置改变的时候回掉
         @Override
         public void onLocationChanged(Location location) {
-            String longitude = "经度" + location.getLongitude();
-            String latitude = "纬度" + location.getLatitude();
-            String accuracy = "精确度" + location.getAccuracy();
+            String longitude = "j" + location.getLongitude();
+            String latitude = "w" + location.getLatitude();
+            String accuracy = "a" + location.getAccuracy();
 
             //位置变化发短信给安全号码
 
@@ -86,7 +86,10 @@ public class GPSService extends Service {
             try {
                 is = getAssets().open("axisoffset.dat");
                 ModifyOffset offset = ModifyOffset.getInstance(is);
-                offset.s2c(new PointDouble(location.getLatitude(),location.getLatitude()));
+                offset.s2c(new PointDouble(location.getLatitude(), location.getLatitude()));
+                longitude = "j:" + offset.X + "\n";
+                latitude = "w:" + offset.Y + "\n";
+
             } catch (IOException e) {
                 e.printStackTrace();
             } catch (Exception e) {
@@ -94,9 +97,9 @@ public class GPSService extends Service {
             }
 
 
-            SharedPreferences sp = getSharedPreferences("config",MODE_PRIVATE);
+            SharedPreferences sp = getSharedPreferences("config", MODE_PRIVATE);
             SharedPreferences.Editor editor = sp.edit();
-            editor.putString("lastlocation",longitude + latitude + accuracy);
+            editor.putString("lastlocation", longitude + latitude + accuracy);
             editor.commit();
         }
 
