@@ -39,7 +39,11 @@
         <activity android:name=".mobilesafe.ui.Setup3Activity" />
         <activity android:name=".mobilesafe.ui.Setup4Activity" />
         <activity android:name=".mobilesafe.ui.SelectContacyActivity" />
-        <service android:name=".mobilesafe.service.GPSService" />
+        <activity android:name=".mobilesafe.ui.AtoolsActivity" />
+        <activity android:name=".mobilesafe.ui.NumberAddressQueryActivity" />
+        <activity android:name=".mobilesafe.ui.CommonNumberQueryActivity" />
+        <activity android:name=".mobilesafe.ui.AppLockActivity" />
+
 
         <receiver android:name="com.xiong.mobilesafe.receiver.BootCompleteReceiver">
             <intent-filter>

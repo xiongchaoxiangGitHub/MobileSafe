@@ -11,7 +11,6 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.xiong.R;
-import com.xiong.mobilesafe.service.GPSService;
 
 /**
  * Created by Administrator on 2017/8/1.

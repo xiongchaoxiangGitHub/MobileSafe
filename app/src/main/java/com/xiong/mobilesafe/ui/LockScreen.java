@@ -14,6 +14,7 @@ import com.xiong.R;
 
 public class LockScreen extends Activity {
     private DevicePolicyManager dpm;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
