@@ -2,7 +2,8 @@ package com.xiong.mobilesafe.ui;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
+
+import com.xiong.R;
 
 /**
  * Created by 99270 on 2017/8/6.
@@ -10,7 +11,8 @@ import android.support.annotation.Nullable;
 
 public class CommonNumberQueryActivity extends Activity {
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_number_query);
     }
 }
