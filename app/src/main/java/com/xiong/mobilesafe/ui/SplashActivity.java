@@ -28,6 +28,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
@@ -36,51 +37,18 @@ import java.net.URL;
 
 public class SplashActivity extends Activity {
 
+    private String description;
+    private String apkurl;
+    private String version;
     private static final int ENTER_HOME = 0;
     private static final int SHOW_UPDATE_DIALOG = 1;
     private static final int URL_ERR = 2;
     private static final int NETWORK_ERR = 3;
     private static final int JSON_ERR = 4;
-    private String description;
-    private String apkurl;
-    private String version;
     protected static final String TAG = "SplashActivity";
     private TextView tv_splash_version;
     private TextView tv_update_info;
-
     private SharedPreferences sp;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_splash);
-        sp = getSharedPreferences("config", MODE_PRIVATE);
-
-        tv_splash_version = findViewById(R.id.tv_splash_version);
-        tv_splash_version.setText("版本：" + this.getVersionName());
-        tv_update_info = findViewById(R.id.tv_update_info);
-
-        boolean update = sp.getBoolean("update", false);
-
-        if (update) {
-            //检查升级
-            checkUpdate();
-        } else {
-            //自动升级已经关闭
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    //进入主页面
-                    enter_home();
-                }
-            }, 2000);
-        }
-
-        AlphaAnimation aa = new AlphaAnimation(0.2f, 1.0f);
-        aa.setDuration(3000);
-        findViewById(R.id.rl_root_splash).startAnimation(aa);
-    }
-
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -106,6 +74,42 @@ public class SplashActivity extends Activity {
             }
         }
     };
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_splash);
+        sp = getSharedPreferences("config", MODE_PRIVATE);
+
+        tv_splash_version = findViewById(R.id.tv_splash_version);
+        tv_splash_version.setText("版本：" + this.getVersionName());
+        tv_update_info = findViewById(R.id.tv_update_info);
+
+        //加载数据
+        loadAddress("address.mp3", "address.db");
+        loadAddress("antivirus.mp3", "antivirus.db");
+
+        boolean update = sp.getBoolean("update", false);
+
+        if (update) {
+            //检查升级
+            checkUpdate();
+        } else {
+            //自动升级已经关闭
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    //进入主页面
+                    enter_home();
+                }
+            }, 2000);
+        }
+
+        AlphaAnimation aa = new AlphaAnimation(0.2f, 1.0f);
+        aa.setDuration(3000);
+        findViewById(R.id.rl_root_splash).startAnimation(aa);
+    }
+
 
     /**
      * 弹出升级对话框
@@ -187,6 +191,32 @@ public class SplashActivity extends Activity {
         startActivity(intent);
         //关闭当前页面
         finish();
+    }
+
+    //加载数据库到/data/data/com.xiong.mobilesafe/files/address.db
+    private void loadAddress(String fileName, String dbName) {
+        File file = new File(getFilesDir(), dbName);
+        try {
+            if (file.exists() && file.length() > 0) {
+                Log.i(TAG, "已存在不需要copy");
+            } else {
+                InputStream is = getAssets().open(fileName);
+                byte[] bytes = new byte[1024];
+                int len = 0;
+                //is.read(bytes);
+                FileOutputStream fos = new FileOutputStream(file);
+                while ((len = is.read(bytes)) != -1) {
+                    fos.write(bytes, 0, len);
+                }
+                is.close();
+                fos.close();
+            }
+
+        } catch (IOException e) {
+            Log.i(TAG, "出错了");
+            e.printStackTrace();
+        }
+
     }
 
     /**
